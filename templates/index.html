@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tasks App</title>
+    <!-- bOOSTRAP 4 PLANTILLA-->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/lux/bootstrap.min.css">
+    <!--  FUENTES-->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
+    <!--  MAIN CSS-->
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+</head>
+<body>
+    <main class="container p-4">
+        <h1 class="display-4 text-center title mt-4">APLICACION d' TAREAS </h1>
+        
+        <div class="row">
+            <div class="col-md-4 offset-md-4 my-auto">
+                <div class="card">
+                    <div class="card-header">
+                        <form action="/create-task" method='POST'>
+                            <div class="form-group">
+                                <input type="text" name="contenido" placeholder="Tareaaa" class="form-control" autofocus>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-block" >
+                                Guarda aqui
+
+                            </button>
+
+                        </form>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-group">
+                            {% for task in L_tasks %}
+                            <li class="list-group-item">
+                                <span class="{% if task.hecho %} hecho {% endif %}">{{task.contenido}}</span>
+                                <a href="/done/{{task.id}}" class="btn btn-success btn-sm">Hecho</a>
+                                <a href="/delete/{{task.id}}" class="btn btn-danger btn-sm">Borrar</a>
+                            </li>
+
+                            {% endfor %}
+                        </ul>
+
+                    </div>
+
+                </div>
+            </div>
+             
+        </div>
+
+        </div>
+    
+    </main>
+</body>
+</html>
