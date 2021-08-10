@@ -1,15 +1,15 @@
-from flask import Flask, render_template, request, redirect, url_for
-from flask_sqlalchemy import SQLAlchemy, sqlalchemy
+from flask import Flask, render_template, request, redirect, url_for  #debemos importarlo  todo esto
+from flask_sqlalchemy import SQLAlchemy, sqlalchemy  #Es muy necesario que tengas instalado tu SQLAlchemy
 
 
 app = Flask(__name__)
 app.config ['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database/tasks.db'
 db = SQLAlchemy(app)
 
-class Task(db.Model):
-    id =db.Column(db.Integer, primary_key=True)
-    contenido = db.Column(db.String(200))
-    hecho = db.Column(db.Boolean)
+class Task(db.Model):                                        #Creacion de la clase task
+    id =db.Column(db.Integer, primary_key=True)              # el id de cada elemento agregado
+    contenido = db.Column(db.String(200))                    #la clase de contenido
+    hecho = db.Column(db.Boolean)                            #La columna para ver los datos
 
 
 #ruta del html
@@ -17,7 +17,8 @@ class Task(db.Model):
 def home():
     tasks= Task.query.all()
     return render_template('index.html', L_tasks = tasks )
-#nueva ruta
+    
+#nueva ruta para crear 
 @app.route('/create-task', methods=['POST'])
 def create():
     task=Task(contenido=request.form['contenido'], hecho=False)
@@ -25,7 +26,7 @@ def create():
     db.session.commit()
     return  redirect(url_for('home'))
 
-
+# en esta parte del codigo se va a definir para que se pueda validar o no el 'hecho' o deshacer
 @app.route('/done/<id>')
 def done(id):
     task = Task.query.filter_by(id=int(id)).first()
@@ -34,7 +35,7 @@ def done(id):
     return redirect(url_for('home'))
     
 
-#ruta para los casilleros 
+#En esta parte del codio se crea la definicion para poder borrar los datos creados
    
 @app.route('/delete/<id>')   
 def delete(id):

@@ -37,7 +37,7 @@
                         <ul class="list-group">
                             {% for task in L_tasks %}
                             <li class="list-group-item">
-                                <span class="{% if task.hecho %} hecho {% endif %}">{{task.contenido}}</span>
+                                <span class="{% if task.hecho %} hecho {% endif %}">{{task.contenido}}</span>  /*
                                 <a href="/done/{{task.id}}" class="btn btn-success btn-sm">Hecho</a>
                                 <a href="/delete/{{task.id}}" class="btn btn-danger btn-sm">Borrar</a>
                             </li>
